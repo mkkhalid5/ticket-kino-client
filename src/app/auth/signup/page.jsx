@@ -4,7 +4,8 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import {PersonPlus, Envelope, Lock, Eye, EyeSlash, ArrowRight} from '@gravity-ui/icons';
+import { PersonPlus, Envelope, Lock, Eye, EyeSlash, ArrowRight } from '@gravity-ui/icons';
+import { authClient } from "@/lib/auth-client";
 
 // import { authClient } from "@/lib/auth-client";
 
@@ -13,7 +14,6 @@ const SignupPage = () => {
     const [showPassword, setShowPassword] = useState(false);
 
     const [formData, setFormData] = useState({
-        companyName: "",
         fullName: "",
         email: "",
         password: "",
@@ -35,18 +35,15 @@ const SignupPage = () => {
                 role: userType,
             });
 
-            // Better Auth
-
-            /*
-            await authClient.signUp.email({
-                email: formData.email,
+            const { data, error } = await authClient.signUp.email({
+                name: formData.fullName,// required
+                email: formData.email, // required
                 password: formData.password,
-                name:
-                    userType === "vendor"
-                        ? formData.companyName
-                        : formData.fullName,
+                role: userType, // required
+                image: "",
+                callbackURL: "",
             });
-            */
+            console.log("Signup response:", { data, error });
         } catch (error) {
             console.error(error);
         }
@@ -58,12 +55,6 @@ const SignupPage = () => {
         // });
     };
 
-    const handleGithubLogin = async () => {
-        // await authClient.signIn.social({
-        //   provider: "github",
-        // });
-    };
-
     return (
         <div className="min-h-screen bg-slate-50 flex items-center justify-center px-4 py-10">
             <motion.div
@@ -71,7 +62,6 @@ const SignupPage = () => {
                 animate={{ opacity: 1, y: 0 }}
                 className="w-full max-w-xl rounded-3xl bg-white p-8 shadow-xl"
             >
-                {/* Header */}
 
                 <div className="mb-8">
                     <h1 className="text-5xl font-bold text-slate-900">
@@ -83,33 +73,27 @@ const SignupPage = () => {
                     </p>
                 </div>
 
-                {/* User Type Toggle */}
-
                 <div className="mb-8 rounded-2xl bg-slate-100 p-1 flex">
                     <button
                         onClick={() => setUserType("traveler")}
-                        className={`flex-1 rounded-xl py-3 font-medium transition ${
-                            userType === "traveler"
+                        className={`flex-1 rounded-xl py-3 font-medium transition ${userType === "traveler"
                                 ? "bg-white shadow text-slate-900"
                                 : "text-slate-500"
-                        }`}
+                            }`}
                     >
                         Traveler
                     </button>
 
                     <button
                         onClick={() => setUserType("vendor")}
-                        className={`flex-1 rounded-xl py-3 font-medium transition ${
-                            userType === "vendor"
+                        className={`flex-1 rounded-xl py-3 font-medium transition ${userType === "vendor"
                                 ? "bg-white shadow text-slate-900"
                                 : "text-slate-500"
-                        }`}
+                            }`}
                     >
-                        Vendor / Operator
+                        Vendor
                     </button>
                 </div>
-
-                {/* Social Buttons */}
 
                 <div className="grid">
                     <button
@@ -119,8 +103,6 @@ const SignupPage = () => {
                         Google
                     </button>
                 </div>
-
-                {/* Divider */}
 
                 <div className="my-8 flex items-center gap-4">
                     <div className="h-px flex-1 bg-slate-200" />
@@ -136,29 +118,6 @@ const SignupPage = () => {
                     onSubmit={handleSubmit}
                     className="space-y-5"
                 >
-                    {userType === "vendor" ? (
-                        <div>
-                            <label className="mb-2 block font-semibold text-slate-800">
-                                Company / Operator Name
-                            </label>
-
-                            <div className="relative">
-                                <PersonPlus
-                                    size={20}
-                                    className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
-                                />
-
-                                <input
-                                    type="text"
-                                    name="companyName"
-                                    placeholder="SkyJet Airways"
-                                    value={formData.companyName}
-                                    onChange={handleChange}
-                                    className="w-full rounded-2xl border px-12 py-4 outline-none focus:border-violet-500"
-                                />
-                            </div>
-                        </div>
-                    ) : (
                         <div>
                             <label className="mb-2 block font-semibold text-slate-800">
                                 Full Name
@@ -180,7 +139,7 @@ const SignupPage = () => {
                                 />
                             </div>
                         </div>
-                    )}
+                    
 
                     {/* Email */}
 

@@ -4,7 +4,8 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import {PersonPlus, Envelope, Lock, Eye, EyeSlash, ArrowRight} from '@gravity-ui/icons';
+import { PersonPlus, Envelope, Lock, Eye, EyeSlash, ArrowRight } from '@gravity-ui/icons';
+import { authClient } from "@/lib/auth-client";
 
 // import { authClient } from "@/lib/auth-client";
 
@@ -31,18 +32,13 @@ const SignInPage = () => {
                 ...formData,
             });
 
-            // Better Auth
-
-            /*
-            await authClient.signUp.email({
-                email: formData.email,
-                password: formData.password,
-                name:
-                    userType === "vendor"
-                        ? formData.companyName
-                        : formData.fullName,
+            const { data, error } = await authClient.signIn.email({
+                email: formData.email, // required
+                password: formData.password, // required
+                rememberMe: true,
+                callbackURL: "/",
             });
-            */
+            console.log("Sign-in response:", { data, error });
         } catch (error) {
             console.error(error);
         }
@@ -75,7 +71,7 @@ const SignInPage = () => {
                     </h1>
 
                     <p className="mt-3 text-lg text-slate-500">
-                        
+
                         Sign in to your account
                     </p>
                 </div>

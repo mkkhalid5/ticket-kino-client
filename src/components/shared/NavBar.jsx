@@ -7,14 +7,15 @@ import { usePathname } from "next/navigation";
 import { authClient, useSession } from "@/lib/auth-client";
 import Image from "next/image";
 
+
 const NavBar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [isProfileOpen, setIsProfileOpen] = useState(false);
     const pathname = usePathname();
-
     
     const handleSignOut = async () => {
         await authClient.signOut();
+        window.location.reload();
     }
 
     const { data: session, isPending } = useSession();

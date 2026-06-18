@@ -1,22 +1,42 @@
 "use client"
+import DashboardRoute from "@/lib/action/user";
 import { useSession } from "@/lib/auth-client";
-import { Bars, Bell, Envelope, Gear, House, Magnifier, Person } from "@gravity-ui/icons";
+import { Bars,CircleDollar, LocationArrow, Envelope, Plus, House, Ticket, Person, ClockArrowRotateLeft } from "@gravity-ui/icons";
 import { Button, Drawer } from "@heroui/react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+
+
 
 const DashboardSideBar = () => {
     const { data: session, isPending } = useSession();
     const user = session?.user;
-    const pathname = usePathname();
-    const navItems = [
-        { icon: House, label: "Home", href: `${pathname}` },
-        { icon: Magnifier, label: "Manage Tickets", href: `${pathname}/manage` },
-        { icon: Bell, label: "Analytics", href: `${pathname}/analytics` },
-        { icon: Envelope, label: "Booking Requests", href: `${pathname}/bookings` },
-        { icon: Person, label: "Add Ticket", href: `${pathname}/addticket` },
+    const role = user?.role;
+    const pathname = role === "vendor" ? "vendor": role === "admin" ? "admin" : "traveler";
+    const navItemsVendor = [
+        { icon: House, label: "Home", href: `/` },
+        { icon: Person, label: "Profile", href: `/dashboard/${pathname}/profile` },
+        { icon: Plus, label: "Add Ticket", href: `/dashboard/${pathname}/addticket` },
+        { icon: Ticket, label: "My Added Tickets ", href: `/dashboard/${pathname}/manage` },
+        { icon: LocationArrow, label: "Requested Bookings", href: `/dashboard/${pathname}/bookings` },
+        { icon: CircleDollar, label: "Revenue Overview", href: `/dashboard/${pathname}/analytics` },
+
     ];
+    const navItemsAdmin = [
+        { icon: House, label: "Home", href: `/dashboard/` },
+        { icon: Person, label: "Profile", href: `/dashboard/${pathname}/profile` },
+        { icon: Ticket, label: "Manage Tickets", href: `/dashboard/${pathname}/manage-tickets` },
+        { icon: Person, label: "Manage Users ", href: `/dashboard/${pathname}/manage-user` },
+        { icon: LocationArrow, label: "Advertise Tickets", href: `/dashboard/${pathname}/bookings` },
+
+    ];
+    const navItemsTraveler = [
+        { icon: House, label: "Home", href: `/` },
+        { icon: Person, label: "Profile", href: `/dashboard/${pathname}/profile` },
+        { icon: Ticket, label: "My Booked Tickets ", href: `/dashboard/${pathname}/myticket` },
+        { icon: ClockArrowRotateLeft, label: "Transaction History", href: `/dashboard/${pathname}/history` },
+    ];
+    const navItems = role === "vendor" ? navItemsVendor : role === "admin" ? navItemsAdmin : navItemsTraveler ;
     return (
         <Drawer>
             <Button variant="secondary" className="flex md:hidden">
@@ -24,8 +44,8 @@ const DashboardSideBar = () => {
                 Menu
             </Button>
             <nav className="hidden md:flex flex-col gap-1 border-l border shadow">
-                {isPending ? "Loading" : <div className="p-4">
-                    <h2 className="text-2xl font-bold mb-3">Dashboard (<span className="text-xl text-gray-700 font-medium">{user?.role}</span>)</h2>
+                {isPending ? <div className="w-50">Loading</div> : <div className="p-4">
+                    <h2 className="text-2xl font-bold mb-3 w-50">Ticket Kino</h2>
                     <Image
                         src={user.image || ""}
                         alt=""
@@ -35,7 +55,8 @@ const DashboardSideBar = () => {
                     <h2 className="font-semibold">{user?.name}</h2>
                     <p>{user?.email}</p>
                 </div>}
-                {navItems.map((item) => (
+                {
+                isPending? '' :navItems.map((item) => (
                     <Link key={item.label} href={item.href}>
                         <button
 

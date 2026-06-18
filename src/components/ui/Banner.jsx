@@ -7,7 +7,7 @@ const Banner = () => {
     return (
         <div className="px-8 py-28 bg-gradient-to-b from-indigo-50 via-white to-purple-50">
             <div className='flex flex-col md:flex-row justify-around'>
-                <div>
+                <div className='flex flex-col justify-center'>
                     <span className='bg-[#22D3EE]/10 rounded-2xl px-4 text-[#22D3EE]'>Trusted By 500K+ travelers worldwide</span>
                     <h1 className='text-6xl font-bold mt-4'>Your Journey</h1>
                     <h2 className='text-5xl font-semibold mt-2'>Starts Here</h2>
@@ -20,7 +20,7 @@ const Banner = () => {
                     alt="BannerImage"
                     width={200}
                     height={200} 
-                    className='w-125'/>
+                    className='w-200 h-125'/>
                 </div>
             </div>
         </div>

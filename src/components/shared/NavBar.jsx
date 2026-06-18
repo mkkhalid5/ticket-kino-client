@@ -4,17 +4,24 @@ import { useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { usePathname } from "next/navigation";
-import { useSession } from "@/lib/auth-client";
+import { authClient, useSession } from "@/lib/auth-client";
 import Image from "next/image";
-import { Button } from "@heroui/react";
 
 const NavBar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [isProfileOpen, setIsProfileOpen] = useState(false);
     const pathname = usePathname();
 
+    
+    const handleSignOut = async () => {
+        await authClient.signOut();
+    }
+
     const { data: session, isPending } = useSession();
     const user = session?.user;
+    if(pathname.includes('dashboard')){
+        return null;
+    }
     const navItems = [
         { name: "All Tickets", href: "/alltickets" },
         { name: "Dashboard", href: `${user?.role === "vendor" ? "/dashboard/vendor" : user?.role === "admin" ? "/dashboard/admin" : "/dashboard/traveler"}` },
@@ -107,7 +114,7 @@ const NavBar = () => {
 
                                                     <li>
                                                         <button
-
+                                                            onClick={handleSignOut}
                                                             className="w-full px-4 py-3 text-left text-sm text-red-500 hover:bg-red-50"
                                                         >
                                                             Logout
@@ -199,9 +206,14 @@ const NavBar = () => {
                                             height={32}
                                             className="rounded-full"
                                         /></Link>
-                                    
-                                    <Link href={"/myprofile"}>My Profile</Link>
-                                    <Button variant="danger">Logout</Button>
+
+                                        <Link href={"/myprofile"}>My Profile</Link>
+                                        <button
+                                            onClick={handleSignOut}
+                                            className="w-full px-4 py-3 text-left text-sm text-red-500 hover:bg-red-50"
+                                        >
+                                            Logout
+                                        </button>
                                     </>)
 
                                     : (

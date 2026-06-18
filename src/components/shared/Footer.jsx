@@ -2,11 +2,16 @@
 import { useSession } from '@/lib/auth-client';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import React from 'react';
 
 const Footer = () => {
+    const pathname = usePathname();
     const { data: session } = useSession();
     const user = session?.user;
+     if(pathname.includes('dashboard')){
+        return null;
+    }
     return (
         <div className='bg-[#0F172B]'>
             <div className='lg:container mx-auto px-6 py-12 text-white space-y-8'>

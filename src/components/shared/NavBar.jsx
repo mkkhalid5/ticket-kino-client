@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 
 const NavBar = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [isProfileOpen, setIsProfileOpen] = useState(false);
     const pathname = usePathname();
 
     const navItems = [
@@ -63,8 +64,11 @@ const NavBar = () => {
                 </ul>
 
                 {/* Desktop Right */}
-                <div className="hidden items-center gap-5 md:flex">
-                    <button className="text-slate-700">
+                <div className="hidden items-center gap-5 md:flex relative">
+                    <button
+                        onClick={() => setIsProfileOpen(!isProfileOpen)}
+                        className="text-slate-700"
+                    >
                         <svg
                             width="22"
                             height="22"
@@ -77,10 +81,41 @@ const NavBar = () => {
                             <circle cx="12" cy="7" r="4" />
                         </svg>
                     </button>
+                    <AnimatePresence>
+                        {isProfileOpen && (
+                            <motion.div
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: 10 }}
+                                transition={{ duration: 0.2 }}
+                                className="absolute right-0 top-12 w-48 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-lg"
+                            >
+                                <ul>
+                                    <li>
+                                        <Link
+                                            href="/profile"
+                                            className="block px-4 py-3 text-sm text-slate-800 hover:bg-gray-100"
+                                        >
+                                            My Profile
+                                        </Link>
+                                    </li>
+
+                                    <li>
+                                        <button
+                                        
+                                            className="w-full px-4 py-3 text-left text-sm text-red-500 hover:bg-red-50"
+                                        >
+                                            Logout
+                                        </button>
+                                    </li>
+                                </ul>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
 
                     <Link
-                        href="/signin"
-                        className={`font-medium text-slate-800 hover:text-violet-600 ${pathname === "/signin" ?
+                        href="/auth/signin"
+                        className={`font-medium text-slate-800 hover:text-violet-600 ${pathname === "/auth/signin" ?
                             "text-violet-600 border-b-2" :
                             "text-slate-800 hover:text-violet-600"}`}
                     >
@@ -136,8 +171,11 @@ const NavBar = () => {
                             exit={{ opacity: 0, y: -20 }}
                             className="absolute left-0 top-20 w-full border-t bg-white md:hidden"
                         >
-                            <div className="flex items-center justify-around gap-5 mx-auto px-6 pt-6">
-                                <button className="text-slate-700">
+                            <div className="flex relative items-center justify-around gap-5 mx-auto px-6 pt-6">
+                                <button
+                                    onClick={() => setIsProfileOpen(!isProfileOpen)}
+                                    className="text-slate-700"
+                                >
                                     <svg
                                         width="22"
                                         height="22"
@@ -150,10 +188,41 @@ const NavBar = () => {
                                         <circle cx="12" cy="7" r="4" />
                                     </svg>
                                 </button>
+                                <AnimatePresence>
+                                    {isProfileOpen && (
+                                        <motion.div
+                                            initial={{ opacity: 0, y: 10 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            exit={{ opacity: 0, y: 10 }}
+                                            transition={{ duration: 0.2 }}
+                                            className="absolute right-0 top-12 w-48 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-lg"
+                                        >
+                                            <ul>
+                                                <li>
+                                                    <Link
+                                                        href="/profile"
+                                                        className="block px-4 py-3 text-sm text-slate-800 hover:bg-gray-100"
+                                                    >
+                                                        My Profile
+                                                    </Link>
+                                                </li>
+
+                                                <li>
+                                                    <button
+                                                        
+                                                        className="w-full px-4 py-3 text-left text-sm text-red-500 hover:bg-red-50"
+                                                    >
+                                                        Logout
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
 
                                 <Link
-                                    href="/signin"
-                                    className={`font-medium text-slate-800 hover:text-violet-600 ${pathname === "/signin" ?
+                                    href="/auth/signin"
+                                    className={`font-medium text-slate-800 hover:text-violet-600 ${pathname === "/auth/signin" ?
                                         "text-violet-600 border-b-2" :
                                         "text-slate-800 hover:text-violet-600"}`}
                                 >

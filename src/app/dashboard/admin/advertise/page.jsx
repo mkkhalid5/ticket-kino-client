@@ -5,7 +5,7 @@ import { getAllTicket } from '@/lib/api/vendorAllTicket';
 import { Chip, Table } from '@heroui/react';
 import React from 'react';
 
-const ManageTicketsPageAdmin = async () => {
+const AdminAdvertisePage = async () => {
     const allTicket = await getAllTicket();
     console.log("hi",allTicket);
     return (
@@ -37,8 +37,11 @@ const ManageTicketsPageAdmin = async () => {
                             <Table.Column defaultWidth="1fr" id="status" minWidth={100}>
                                 Status
                             </Table.Column>
-                            <Table.Column defaultWidth="1fr" id="actions" minWidth={220}>
-                                Actions
+                            <Table.Column defaultWidth="1fr" id="adstatus" minWidth={100}>
+                                Advertise Status
+                            </Table.Column>
+                            <Table.Column defaultWidth="1fr" id="advertise" minWidth={100}>
+                                Advertise
                             </Table.Column>
                         </Table.Header>
                         <Table.Body>
@@ -54,8 +57,12 @@ const ManageTicketsPageAdmin = async () => {
                                             {ticket.adminApproval}
                                         </Chip>
                                     </Table.Cell>
-                                    
-                                    <Table.Cell className="flex gap-1"><ApprovedAlert ticket={ticket} /> <DeleteAlert ticket={ticket} /></Table.Cell>
+                                    <Table.Cell>
+                                        <Chip color={`${ticket.advertise === "true"? "success" : "danger"}`} size="sm" variant="soft">
+                                            {ticket.advertise}
+                                        </Chip>
+                                    </Table.Cell>
+                                    <Table.Cell> <Advertise ticket={ticket} /> </Table.Cell>
                                 </Table.Row>)
                             }
                         </Table.Body>
@@ -66,4 +73,4 @@ const ManageTicketsPageAdmin = async () => {
     );
 };
 
-export default ManageTicketsPageAdmin;
+export default AdminAdvertisePage;

@@ -5,7 +5,7 @@ import React from 'react';
 
 const DeleteAlert = ({ ticket }) => {
     const handleUpdate = () => {
-        updateTicketStatus(ticket._id, "rejcted");
+        updateTicketStatus(ticket._id, "rejected");
         alert("Rejected Successfull");
         window.location.reload();
     }

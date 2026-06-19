@@ -1,6 +1,6 @@
 "use client"
 import { useSession } from "@/lib/auth-client";
-import { Bars,CircleDollar, LocationArrow, Envelope, Plus, House, Ticket, Person, ClockArrowRotateLeft } from "@gravity-ui/icons";
+import { Bars,CircleDollar, LocationArrow, Envelope, Plus, House, Ticket, Person, ClockArrowRotateLeft, PersonPlanetEarth, Files } from "@gravity-ui/icons";
 import { Button, Drawer } from "@heroui/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -27,8 +27,8 @@ const DashboardSideBar = () => {
         { icon: House, label: "Home", href: `/` },
         { icon: Person, label: "Profile", href: `/dashboard/${route}/profile` },
         { icon: Ticket, label: "Manage Tickets", href: `/dashboard/${route}/manage-tickets` },
-        { icon: Person, label: "Manage Users ", href: `/dashboard/${route}/manage-user` },
-        { icon: LocationArrow, label: "Advertise Tickets", href: `/dashboard/${route}/bookings` },
+        { icon: PersonPlanetEarth, label: "Manage Users ", href: `/dashboard/${route}/manage-user` },
+        { icon: Files, label: "Advertise Tickets", href: `/dashboard/${route}/advertise` },
 
     ];
     const navItemsTraveler = [

@@ -33,6 +33,7 @@ export default function AddTicketForm() {
             vendorName: user?.name,
             vendorEmail: user?.email,
             adminApproval: "pending",
+            advertise: "false",
         }
         console.log("new Ticket: ", newTicket);
 

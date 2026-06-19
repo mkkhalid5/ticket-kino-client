@@ -8,6 +8,6 @@ export const getAllTicket = async () =>{
     return await dataGet(`/api/allticket`);
 }
 
-export const updateTicketStatus = async (id,status) => {
-    return await dataUpdate(`/api/allticket/${id}`,{status})
+export const updateTicketStatus = async (id,status,ad) => {
+    return await dataUpdate(`/api/allticket/${id}`,{status,ad})
 }

@@ -4,9 +4,10 @@ import { AlertDialog, Button } from '@heroui/react';
 import React from 'react';
 
 const ApprovedAlert = ({ticket}) => {
+    const ad = ticket.advertise;
     const handleUpdate = () => {
-            updateTicketStatus(ticket._id, "approved");
-            alert("Rejected Successfull");
+            updateTicketStatus(ticket._id, "approved",ad);
+            alert("approved Successfull");
             window.location.reload();
         }
     return (

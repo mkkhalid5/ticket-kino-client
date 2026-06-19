@@ -17,6 +17,13 @@ export const dataPost = async (path, data) => {
     return await response.json();
 };
 
+export const dataDelete = async (path) => {
+  const res = await fetch(`${baseUrl}${path}`, {
+    method: 'DELETE',
+  });
+  return await res.json();
+};
+
 
 export const dataUpdate = async (path, data) => {
     const res = await fetch(`${baseUrl}${path}`, {

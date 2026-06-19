@@ -16,50 +16,49 @@ export default function AddTicketForm() {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
         const ticketData = Object.fromEntries(formData.entries());
-        const { ticketTittle, fromLocation, toLocation, price, quantity, time, date } = ticketData;
+        const { ticketTittle, fromLocation, toLocation, price, quantity, time, date, perks } = ticketData;
         console.log("data", ticketData);
 
         console.log(user);
         const newTicket = {
             ticketTitle: ticketTittle,
-            formLocation: fromLocation,
+            fromLocation: fromLocation,
             toLocation: toLocation,
             transportType: transportType,
             price: price,
             quantity: quantity,
             date: date,
             time: time,
+            perks: perks,
             vendorName: user?.name,
             vendorEmail: user?.email,
             adminApproval: "pending",
         }
         console.log("new Ticket: ", newTicket);
 
-        // try {
-        //     const tokenData = await authClient.token();
-        //     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URI}/tutors`, {
-        //         method: 'POST',
-        //         headers: {
-        //             'content-type': 'application/json',
-        //             authorization: `Bearer ${tokenData?.token}`,
-        //         },
-        //         body: JSON.stringify(newTutorData)
-        //     });
-        //     const data = await res.json();
-        //     console.log(data);
-        //     if (res.ok) {
-        //         toast.success("Tutor added successfully");
-        //         window.location.reload();
-        //     }
-        //     else {
-        //         toast.error("Failed to add tutor");
-        //     }
+        try {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URI}/api/allticket`, {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json',
+                },
+                body: JSON.stringify(newTicket)
+            });
+            const data = await res.json();
+            console.log(data);
+            if (res.ok) {
+                alert("Ticket Created Successfull !");
+                window.location.reload();
+            }
+            else {
+                alert("Failed to create ticket");
+            }
 
-        // }
-        // catch (error) {
-        //     console.log(error);
-        //     toast.error("Something went wrong");
-        // }
+        }
+        catch (error) {
+            console.log(error);
+            toast.error("Something went wrong");
+        }
     }
 
     return (
@@ -174,32 +173,32 @@ export default function AddTicketForm() {
                     <CheckboxGroup name="perks">
                         <Label>Select your perks</Label>
                         <Description>Choose all that apply</Description>
-                        <Checkbox value="breakfast">
-                            <Checkbox.Content>
-                                <Checkbox.Control>
-                                    <Checkbox.Indicator />
-                                </Checkbox.Control>
-                                BreakFast
-                            </Checkbox.Content>
-                        </Checkbox>
-                        <Checkbox value="alunch">
-                            <Checkbox.Content>
-                                <Checkbox.Control>
-                                    <Checkbox.Indicator />
-                                </Checkbox.Control>
-                                Design
-                            </Checkbox.Content>
-                            <Description>Enjoy creating beautiful interfaces</Description>
-                        </Checkbox>
-                        <Checkbox value="writing">
-                            <Checkbox.Content>
-                                <Checkbox.Control>
-                                    <Checkbox.Indicator />
-                                </Checkbox.Control>
-                                Writing
-                            </Checkbox.Content>
-                            <Description>Passionate about content creation</Description>
-                        </Checkbox>
+                        <div className="flex gap-4">
+                            <Checkbox value="breakfast">
+                                <Checkbox.Content>
+                                    <Checkbox.Control>
+                                        <Checkbox.Indicator />
+                                    </Checkbox.Control>
+                                    BreakFast
+                                </Checkbox.Content>
+                            </Checkbox>
+                            <Checkbox value="lunch">
+                                <Checkbox.Content>
+                                    <Checkbox.Control>
+                                        <Checkbox.Indicator />
+                                    </Checkbox.Control>
+                                    Lunch
+                                </Checkbox.Content>
+                            </Checkbox>
+                            <Checkbox value="dinner">
+                                <Checkbox.Content>
+                                    <Checkbox.Control>
+                                        <Checkbox.Indicator />
+                                    </Checkbox.Control>
+                                    Dinner
+                                </Checkbox.Content>
+                            </Checkbox>
+                        </div>
                     </CheckboxGroup>
 
                     <TextField className="w-full max-w-70" name="vendorName">

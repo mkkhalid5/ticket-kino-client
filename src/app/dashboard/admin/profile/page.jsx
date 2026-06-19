@@ -19,33 +19,79 @@ const AdminProfilePage = async () => {
     console.log(currentUser);
 
     return (
-        <div className='flex justify-center items-center h-150'>
-            <Card className="max-w-xl mx-auto p-6 h-100">
-                <div className="flex flex-col justify-center gap-4 items-center">
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 p-4">
+            <Card className="w-full max-w-lg rounded-3xl shadow-xl overflow-hidden">
 
-                    <Avatar className='w-32 h-32'>
-                        <Avatar.Image alt={currentUser.name} src={currentUser.image} />
-                        <Avatar.Fallback>{currentUser.name}</Avatar.Fallback>
-                    </Avatar>
-                    <div>
-                        <h2 className="text-xl font-bold">
+                {/* Top Banner */}
+                <div className="h-24 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"></div>
+
+                <div className="p-6 flex flex-col items-center -mt-12">
+
+                    {/* Avatar */}
+                    <div className="relative">
+                        <Avatar className="w-28 h-28 ring-4 ring-white shadow-lg">
+                            <Avatar.Image
+                                alt={currentUser.name}
+                                src={currentUser.image}
+                            />
+                            <Avatar.Fallback>
+                                {currentUser.name?.charAt(0)}
+                            </Avatar.Fallback>
+                        </Avatar>
+
+                        {/* online dot */}
+                        <span className="absolute bottom-2 right-2 w-4 h-4 bg-green-500 border-2 border-white rounded-full"></span>
+                    </div>
+
+                    {/* Name + Email */}
+                    <div className="text-center mt-4 space-y-1">
+                        <h2 className="text-2xl font-bold text-gray-800">
                             {currentUser.name}
                         </h2>
-                        <p className="text-gray-500">
+                        <p className="text-gray-500 text-sm">
                             {currentUser.email}
                         </p>
-                        <div className="flex gap-2 mt-2">
-                            <Chip color="primary">
+                    </div>
+
+                    {/* Chips */}
+                    <div className="flex flex-wrap justify-center gap-2 mt-4">
+                        <Chip color="primary" variant="soft">
+                            👤 {currentUser.role}
+                        </Chip>
+
+                        <Chip color={currentUser.status === "active" ? "success" : "danger"} variant="soft">
+                            {currentUser.status}
+                        </Chip>
+
+                        <Chip color="warning" variant="soft">
+                            📅 {formattedDate}
+                        </Chip>
+                    </div>
+
+                    {/* Extra Info Section */}
+                    <div className="w-full mt-6 grid grid-cols-2 gap-3 text-center">
+                        <div className="p-3 rounded-xl bg-gray-50">
+                            <p className="text-xs text-gray-500">Role</p>
+                            <p className="font-semibold capitalize">
                                 {currentUser.role}
-                            </Chip>
-                            <Chip color="success">
+                            </p>
+                        </div>
+
+                        <div className="p-3 rounded-xl bg-gray-50">
+                            <p className="text-xs text-gray-500">Status</p>
+                            <p className={`font-semibold ${currentUser.status === "active"
+                                    ? "text-green-600"
+                                    : "text-red-500"
+                                }`}>
                                 {currentUser.status}
-                            </Chip>
-                            <Chip color="success">
-                                {formattedDate}
-                            </Chip>
+                            </p>
                         </div>
                     </div>
+
+                    {/* Footer vibe */}
+                    <p className="text-xs text-gray-400 mt-6">
+                        Member since {formattedDate}
+                    </p>
                 </div>
             </Card>
         </div>

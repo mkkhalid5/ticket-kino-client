@@ -6,7 +6,7 @@ import React from 'react';
 
 const AdminAdd = ({ user }) => {
     const handleAdmin = async () => {
-        updateUserDetails(user.id, "admin",`${user.status}`)
+        updateUserDetails(user._id, "admin",`${user.status}`)
         alert("Making Admin Successfull");
         window.location.reload();
     }

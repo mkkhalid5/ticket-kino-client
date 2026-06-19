@@ -18,13 +18,10 @@ const Footer = () => {
                 <div className='grid md:grid-cols-2 lg:grid-cols-4 gap-8'>
                     <div className='space-y-4'>
                         <div className='flex items-center gap-1'>
-                            
                             <h2 className='font-bold'>Ticket Kino</h2>
                         </div>
                         <p className='text-[#90A1B9]'>Your trusted platform for seamless travel booking. Discover destinations, book tickets, and embark on unforgettable journeys with confidence..</p>
-
                     </div>
-
                     <div className='space-y-4'>
                         <h2 className='font-bold'>Quick Links</h2>
                         <ul className="flex flex-col gap-2 text-[#90A1B9]">
@@ -42,7 +39,6 @@ const Footer = () => {
                             </li>
                         </ul>
                     </div>
-
                     <div className='space-y-4'>
                         <h2 className='font-bold'>Contact</h2>
                         <ul className="flex flex-col gap-2 text-[#90A1B9]">
@@ -51,7 +47,6 @@ const Footer = () => {
                             <li>Rajshahi, Bangladesh</li>
                         </ul>
                     </div>
-
                     <div className='space-y-4'>
                         <h2 className='font-bold'>Payment Method</h2>
                         <ul className="flex flex-col gap-2 text-[#90A1B9]">
@@ -59,7 +54,6 @@ const Footer = () => {
                         </ul>
                     </div>
                 </div>
-
                 <hr className='text-slate-500' />
                 <div className='text-center text-sm text-[#90A1B9] mt-4'>
                     &copy; {new Date().getFullYear()} Ticket Kino. All rights reserved.

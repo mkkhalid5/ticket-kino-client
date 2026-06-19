@@ -6,7 +6,7 @@ import React from 'react';
 
 const FraudAdd = ({user}) => {
     const handleFraud = async () => {
-            updateUserDetails(user.id,`${user.role}`,"fraud")
+            updateUserDetails(user._id,`${user.role}`,"fraud")
             alert("Mark as Fraud Successfull");
             window.location.reload();
         }

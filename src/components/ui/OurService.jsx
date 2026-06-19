@@ -2,7 +2,7 @@ import React from 'react';
 
 const OurService = () => {
     return (
-        <div class="bg-[linear-gradient(to_right,rgba(67,56,202,0.05)_0%,rgba(0,0,0,0)_50%,rgba(168,85,247,0.05)_100%)] py-20">
+        <div className="bg-[linear-gradient(to_right,rgba(67,56,202,0.05)_0%,rgba(0,0,0,0)_50%,rgba(168,85,247,0.05)_100%)] py-20">
             <div className='px-8'>
                 <div className='flex flex-col justify-center items-center space-y-2'>
                     <span className="bg-[#22D3EE] rounded-2xl px-2">Why Choose Us</span>

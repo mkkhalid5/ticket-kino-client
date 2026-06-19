@@ -9,5 +9,5 @@ export const getAllTicket = async () =>{
 }
 
 export const updateTicketStatus = async (id,status,ad) => {
-    return await dataUpdate(`/api/allticket/${id}`,{status,ad})
+    return await dataUpdate(`/api/allticket/${id}`,{status,ad});
 }

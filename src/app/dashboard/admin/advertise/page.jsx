@@ -15,7 +15,7 @@ const AdminAdvertisePage = async () => {
                 <h2 className='text-2xl font-bold'>Admin Control Center</h2>
             </div>
             <Table>
-                <h2 className='text-lg font-bold p-5'>All Tickets — Moderation Queue</h2>
+                <h2 className='text-lg font-bold p-5'>All Tickets — Advertise Queue</h2>
                 <Table.ResizableContainer>
                     <Table.Content aria-label="Table with resizable columns" className="min-w-175">
                         <Table.Header>

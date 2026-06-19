@@ -47,12 +47,12 @@ const DashboardSideBar = () => {
             <nav className="hidden md:flex flex-col gap-1 border-l border shadow">
                 {isPending ? <div className="w-50">Loading</div> : <div className="p-4">
                     <h2 className="text-2xl font-bold mb-3 w-50">Ticket Kino</h2>
-                    {/* <Image
+                    <Image
                         src={user.image || ""}
                         alt=""
                         width={60}
                         height={60}
-                        className="rounded-full" /> */}
+                        className="rounded-full" />
                     <h2 className="font-semibold">{user?.name}</h2>
                     <p>{user?.email}</p>
                 </div>}

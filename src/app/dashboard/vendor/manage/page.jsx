@@ -32,12 +32,11 @@ const MyTicketManagePage = async () => {
 
                         <div className='flex gap-2'>
                             <div className='rounded-full px-4 py-3 h-full border'>
-                                <button><PencilToSquare /></button>
+                                <button disabled={ticket.adminApproval === "rejected"}><PencilToSquare /></button>
                             </div>
                             <div className='rounded-full p-4 h-full border'>
                                 <TrashBin />
                             </div>
-
                         </div>
                     </div>)}
             </div>

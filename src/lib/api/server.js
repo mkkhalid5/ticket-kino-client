@@ -24,7 +24,6 @@ export const dataDelete = async (path) => {
   return await res.json();
 };
 
-
 export const dataUpdate = async (path, data) => {
     const res = await fetch(`${baseUrl}${path}`, {
         method: 'PATCH',
@@ -35,3 +34,4 @@ export const dataUpdate = async (path, data) => {
     });
     return await res.json();
 };
+

@@ -15,6 +15,8 @@ export default function AddTicketForm() {
 
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
+        const imageFile = formData.get("image");
+
         const ticketData = Object.fromEntries(formData.entries());
         const { ticketTittle, fromLocation, toLocation, price, quantity, time, date, perks } = ticketData;
         console.log("data", ticketData);
@@ -201,7 +203,11 @@ export default function AddTicketForm() {
                             </Checkbox>
                         </div>
                     </CheckboxGroup>
-
+                    <input
+                        type="file"
+                        accept="image/*"
+                        name="image"
+                    />
                     <TextField className="w-full max-w-70" name="vendorName">
                         <Label>Your Name</Label>
                         <InputGroup>

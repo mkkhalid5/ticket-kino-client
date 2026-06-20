@@ -1,50 +1,11 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
 import { Plane } from "@gravity-ui/icons";
+import Link from "next/link";
+import { useCountdown } from "@/lib/action/useCounter";
 
 const LatestTicket = ({ latestTicket }) => {
-    const [now, setNow] = useState(0);
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setNow(Date.now());
-        }, 1000);
-
-        return () => clearInterval(interval);
-    }, []);
-
-    const formatTime = (time) => {
-        return new Date(`2000-01-01T${time}`).toLocaleTimeString("en-US", {
-            hour: "numeric",
-            minute: "2-digit",
-            hour12: true,
-        });
-    };
-
-    const getCountdown = (date, time) => {
-        const departure = new Date(`${date}T${time}`);
-        const diff = departure.getTime() - now;
-
-        if (diff <= 0) {
-            return "Expired";
-        }
-
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor(
-            (diff % (1000 * 60 * 60 * 24)) /
-            (1000 * 60 * 60)
-        );
-        const minutes = Math.floor(
-            (diff % (1000 * 60 * 60)) /
-            (1000 * 60)
-        );
-        const seconds = Math.floor(
-            (diff % (1000 * 60)) / 1000
-        );
-
-        return `${days}D ${hours}H ${minutes}M ${seconds}S`;
-    };
+    const { formatTime, getCountdown } = useCountdown();
 
     return (
         <div className="container mx-auto py-20 px-4">
@@ -63,12 +24,12 @@ const LatestTicket = ({ latestTicket }) => {
             </div>
 
             <div className="space-y-6">
+                <button className="flex justify-self-end mr-4 hover:shadow-xl hover:text-blue-400 transition-all duration-300 bg-gray-200 text-gray-500 px-6 py-2 rounded-xl font-medium"><Link href={'/alltickets'}>View All Tickets →</Link></button>
                 {latestTicket.map((ticket) => {
                     const countdown = getCountdown(
                         ticket.date,
                         ticket.time
                     );
-
                     return (
                         <div
                             key={ticket._id}
@@ -98,7 +59,7 @@ const LatestTicket = ({ latestTicket }) => {
                                     <h2 className="font-bold text-lg">
                                         {ticket.ticketTitle}
                                     </h2>
-                                  <p className="text-slate-600">
+                                    <p className="text-slate-600">
                                         {ticket.perks}
                                     </p>
                                 </div>
@@ -109,7 +70,7 @@ const LatestTicket = ({ latestTicket }) => {
                                     <h2 className="font-bold">
                                         {formatTime(ticket.time)}
                                     </h2>
-                                <p className="text-slate-600">
+                                    <p className="text-slate-600">
                                         {ticket.date}
                                     </p>
                                 </div>
@@ -142,8 +103,8 @@ const LatestTicket = ({ latestTicket }) => {
                                     <button
                                         disabled={countdown === "Expired"}
                                         className={`px-6 py-2 rounded-xl font-medium transition ${countdown === "Expired"
-                                                ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                                                : "bg-[#615FFF] hover:bg-[#514ef0] text-white"
+                                            ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                                            : "bg-[#615FFF] hover:bg-[#514ef0] text-white"
                                             }`}
                                     >
                                         {countdown === "Expired"

@@ -12,7 +12,7 @@ const NavBar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [isProfileOpen, setIsProfileOpen] = useState(false);
     const pathname = usePathname();
-    
+
     const handleSignOut = async () => {
         await authClient.signOut();
         window.location.reload();
@@ -20,16 +20,25 @@ const NavBar = () => {
 
     const { data: session, isPending } = useSession();
     const user = session?.user;
-    if(pathname.includes('dashboard')){
+    if (pathname.includes('dashboard')) {
         return null;
     }
-    const navItems = [
-        { name: "All Tickets", href: "/alltickets" },
-        { name: "Dashboard", href: `${user?.role === "vendor" ? "/dashboard/vendor" : user?.role === "admin" ? "/dashboard/admin" : "/dashboard/traveler"}` },
 
+    const dashboardLink = user
+        ? user.role === "vendor"
+            ? "/dashboard/vendor"
+            : user.role === "admin"
+                ? "/dashboard/admin"
+                : "/dashboard/traveler"
+        : "/auth/signin";
+
+    const navItems = [
+        { name: "Home", href: "/" },
+        { name: "All Tickets", href: "/alltickets" },
+        { name: "Dashboard", href: dashboardLink },
     ];
     return (
-        <nav className="sticky top-0 z-50 w-full border-b border-gray-100 bg-white/90 backdrop-blur-md">
+        <nav className="sticky top-0 z-50 w-full border-b border-slate-200 bg-white/80 backdrop-blur-xl shadow-sm">
             <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
                 {/* Logo */}
                 <Link href="/">
@@ -37,7 +46,7 @@ const NavBar = () => {
                         whileHover={{ scale: 1.03 }}
                         className="flex items-center gap-3"
                     >
-                        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-violet-600 shadow-lg">
+                        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-r from-violet-600 to-indigo-600 shadow-lg">
                             <svg
                                 width="22"
                                 height="22"
@@ -50,9 +59,7 @@ const NavBar = () => {
                             </svg>
                         </div>
 
-                        <span className="text-2xl font-bold text-slate-800">
-                            Ticket Kino
-                        </span>
+                        <span className="text-2xl font-extrabold bg-gradient-to-r from-violet-600 to-indigo-600 bg-clip-text text-transparent">Ticket Kino</span>
                     </motion.div>
                 </Link>
 
@@ -65,9 +72,7 @@ const NavBar = () => {
                         >
                             <Link
                                 href={item.href}
-                                className={`font-medium text-slate-800 transition-colors hover:text-violet-600  ${pathname === item.href
-                                    ? "text-violet-600 border-b-2"
-                                    : "text-slate-800 hover:text-violet-600"
+                                className={`px-4 py-2 rounded-xl transition-all ${pathname === item.href ? "bg-violet-100 text-violet-700" : "text-slate-700 hover:bg-slate-100"
                                     }`}
                             >
                                 {item.name}
@@ -87,11 +92,11 @@ const NavBar = () => {
                                         className="text-slate-700"
                                     >
                                         <Image
-                                            src={user?.image || "/default-avatar.png"}
+                                            src={user?.image}
                                             alt="Profile"
-                                            width={32}
-                                            height={32}
-                                            className="rounded-full"
+                                            width={40}
+                                            height={40}
+                                            className="rounded-full ring-2 ring-violet-200 hover:ring-violet-400 transition"
                                         />
                                     </button>
                                     <AnimatePresence>
@@ -101,8 +106,14 @@ const NavBar = () => {
                                                 animate={{ opacity: 1, y: 0 }}
                                                 exit={{ opacity: 0, y: 10 }}
                                                 transition={{ duration: 0.2 }}
-                                                className="absolute right-0 top-12 w-48 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-lg"
+                                                className="absolute right-0 top-14 w-60 overflow-hidden rounded-2xl border bg-white shadow-xl"
                                             >
+                                                <div className="px-4 py-3 border-b">
+                                                    <p className="font-semibold">{user?.name}</p>
+                                                    <p className="text-xs text-slate-500 truncate">
+                                                        {user?.email}
+                                                    </p>
+                                                </div>
                                                 <ul>
                                                     <li>
                                                         <Link
@@ -137,13 +148,14 @@ const NavBar = () => {
                                         Sign In
                                     </Link>
 
-                                        <motion.button
-                                            whileHover={{ scale: 1.04 }}
-                                            whileTap={{ scale: 0.96 }}
-                                            className="rounded-xl bg-violet-600 px-6 py-3 font-semibold text-white transition hover:bg-violet-700"
+                                        <Link
+                                            href="/auth/signup"
+                                            className={`font-medium text-slate-800 hover:text-violet-600 ${pathname === "/auth/signup" ?
+                                                "text-violet-600 border-b-2" :
+                                                "text-slate-800 hover:text-violet-600"}`}
                                         >
-                                            Get Started
-                                        </motion.button>
+                                            Sign Up
+                                        </Link>
                                     </>)}
                     </div>)
                 }
@@ -185,7 +197,7 @@ const NavBar = () => {
                             initial={{ opacity: 0, y: -20 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -20 }}
-                            className="absolute left-0 top-20 w-full border-t bg-white md:hidden"
+                            className="absolute left-4 right-4 top-24 rounded-2xl border bg-white shadow-xl overflow-hidden md:hidden"
                         >
                             <div className="flex relative items-center justify-around gap-5 mx-auto px-6 pt-6">
                                 {user ?
@@ -205,18 +217,14 @@ const NavBar = () => {
                                             alt="Profile"
                                             width={32}
                                             height={32}
-                                            className="rounded-full"
+                                            className="rounded-full ring-2 ring-violet-200 hover:ring-violet-400 transition"
                                         /></Link>
-
                                         <Link href={"/myprofile"}>My Profile</Link>
                                         <button
                                             onClick={handleSignOut}
                                             className="w-full px-4 py-3 text-left text-sm text-red-500 hover:bg-red-50"
-                                        >
-                                            Logout
-                                        </button>
+                                        >Logout</button>
                                     </>)
-
                                     : (
                                         <><Link
                                             href="/auth/signin"
@@ -226,17 +234,10 @@ const NavBar = () => {
                                         >
                                             Sign In
                                         </Link>
-
-                                            <motion.button
-                                                whileHover={{ scale: 1.04 }}
-                                                whileTap={{ scale: 0.96 }}
-                                                className="rounded-xl bg-violet-600 px-6 py-3 font-semibold text-white transition hover:bg-violet-700"
-                                            >
-                                                Get Started
-                                            </motion.button></>)}
+                                            <Link href="/auth/signup" className={`font-medium text-slate-800 hover:text-violet-600 ${pathname === "/auth/signup" ? "text-violet-600 border-b-2" : "text-slate-800 hover:text-violet-600"}`} >Sign Up</Link></>)}
                             </div>
                             <ul className="flex flex-col p-6">
-                                {navItems.map((item) => (
+                                {navItems.map(item => (
                                     <li key={item.name}>
                                         <Link
                                             href={item.href}
@@ -250,12 +251,9 @@ const NavBar = () => {
                                     </li>
                                 ))}
                             </ul>
-
                         </motion.div>
                     )}
-
                 </AnimatePresence>
-
             </div>
         </nav>
     );

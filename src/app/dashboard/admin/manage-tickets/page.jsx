@@ -36,13 +36,13 @@ const ManageTicketsPageAdmin = async () => {
                             className="min-w-250"
                         >
                             <Table.Header className="bg-gray-100 text-gray-700">
-                                <Table.Column minWidth={180}>
+                                <Table.Column minWidth={220}>
                                     Vendor
                                 </Table.Column>
                                 <Table.Column minWidth={220}>
                                     Route
                                 </Table.Column>
-                                <Table.Column minWidth={100}>
+                                <Table.Column minWidth={50}>
                                     Type
                                 </Table.Column>
                                 <Table.Column minWidth={100}>

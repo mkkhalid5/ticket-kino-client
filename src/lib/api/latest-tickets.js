@@ -11,3 +11,7 @@ export const getAdvertiseTicket = async () => {
 export const getAllTickets = async () => {
     return await dataGet(`/api/ticket-kino/all-tickets`);
 }
+
+export const getTicketById = async (id) => {
+    return await dataGet(`/api/ticket-kino/all-tickets/${id}`);
+}

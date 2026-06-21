@@ -107,9 +107,9 @@ const LatestTicket = ({ latestTicket }) => {
                                             : "bg-[#615FFF] hover:bg-[#514ef0] text-white"
                                             }`}
                                     >
-                                        {countdown === "Expired"
+                                        <Link href={`/alltickets/${ticket._id}`}>{countdown === "Expired"
                                             ? "Expired"
-                                            : "Book Now"}
+                                            : "Book Now"}</Link>
                                     </button>
                                 </div>
                             </div>

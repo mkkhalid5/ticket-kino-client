@@ -86,7 +86,6 @@ const VendorProfile = async () => {
                             </p>
                         </div>
                     </div>
-
                     {/* Footer vibe */}
                     <p className="text-xs text-gray-400 mt-6">
                         Member since {formattedDate}

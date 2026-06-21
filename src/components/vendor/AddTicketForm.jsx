@@ -28,7 +28,7 @@ export default function AddTicketForm() {
             toLocation: toLocation,
             transportType: transportType,
             price: price,
-            quantity: quantity,
+            quantity: Number(quantity),
             date: date,
             time: time,
             perks: perks,

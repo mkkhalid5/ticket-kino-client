@@ -2,7 +2,7 @@
 
 import { useSession } from "@/lib/auth-client";
 import { Check, Envelope, LocationArrow, PencilToLine, SquareChartBar, TagDollar, Plus } from "@gravity-ui/icons";
-import { Button, Checkbox, CheckboxGroup, DateField, Description, Input, InputGroup, Label, ListBox, Select, TextField, TimeField } from "@heroui/react";
+import { Button, Checkbox, CheckboxGroup, DateField, Description, Input, InputGroup, Label, ListBox, Radio, RadioGroup, Select, TextField, TimeField } from "@heroui/react";
 import { useState } from "react";
 
 
@@ -10,6 +10,14 @@ export default function AddTicketForm() {
     const [transportType, setTransportType] = useState("");
     const { data: session } = useSession();
     const user = session?.user;
+    const providePerks =
+        [
+            { id: 1, value: "cabin", text: "Cabin" },
+            { id: 2, value: "breakfast", text: "BreakFast" },
+            { id: 3, value: "lunch", text: "Lunch" },
+            { id: 4, value: "dinner", text: "Dinner" },
+            { id: 5, value: "wifi", text: "WIFI" },
+        ]
 
     const handleAddTicket = async (e) => {
 
@@ -42,8 +50,9 @@ export default function AddTicketForm() {
                 fromLocation: fromLocation,
                 toLocation: toLocation,
                 transportType: transportType,
-                price: price,
+                price: Number(price),
                 quantity: Number(quantity),
+                totalQuantity: Number(quantity),
                 date: date,
                 time: time,
                 perks: perks,
@@ -75,7 +84,7 @@ export default function AddTicketForm() {
         }
         catch (error) {
             console.log(error);
-            toast.error("Something went wrong");
+            alert("Something went wrong");
         }
     }
 
@@ -115,7 +124,7 @@ export default function AddTicketForm() {
                     </TextField>
 
                     <Select
-                        className="w-[256px]"
+                        className=""
                         placeholder="Select one"
                         selectedKey={transportType}
                         onSelectionChange={setTransportType}>
@@ -148,6 +157,10 @@ export default function AddTicketForm() {
                                 </ListBox.Item>
                                 <ListBox.Item id="bike" textValue="Bike">
                                     Bike
+                                    <ListBox.ItemIndicator />
+                                </ListBox.Item>
+                                <ListBox.Item id="launch" textValue="Launch">
+                                    Launch
                                     <ListBox.ItemIndicator />
                                 </ListBox.Item>
                             </ListBox>
@@ -188,34 +201,21 @@ export default function AddTicketForm() {
                         </TimeField.Group>
                     </TimeField>
 
-                    <CheckboxGroup name="perks">
-                        <Label>Select your perks</Label>
-                        <Description>Choose all that apply</Description>
-                        <div className="flex gap-4">
-                            <Checkbox value="breakfast">
-                                <Checkbox.Content>
-                                    <Checkbox.Control>
-                                        <Checkbox.Indicator />
-                                    </Checkbox.Control>
-                                    BreakFast
-                                </Checkbox.Content>
-                            </Checkbox>
-                            <Checkbox value="lunch">
-                                <Checkbox.Content>
-                                    <Checkbox.Control>
-                                        <Checkbox.Indicator />
-                                    </Checkbox.Control>
-                                    Lunch
-                                </Checkbox.Content>
-                            </Checkbox>
-                            <Checkbox value="dinner">
-                                <Checkbox.Content>
-                                    <Checkbox.Control>
-                                        <Checkbox.Indicator />
-                                    </Checkbox.Control>
-                                    Dinner
-                                </Checkbox.Content>
-                            </Checkbox>
+                    <CheckboxGroup defaultValue="wifi" name="perks">
+                        <Label>Perks selection</Label>
+                        <Description>Choose the perks you want to provide</Description>
+                        <div className="flex gap-1">
+                            {
+                                providePerks.map(perk =>
+                                    <Checkbox key={perk.id} value={perk.value}>
+                                        <Checkbox.Content>
+                                            <Checkbox.Control>
+                                                <Checkbox.Indicator />
+                                            </Checkbox.Control>
+                                            {perk.text}
+                                        </Checkbox.Content>
+                                    </Checkbox>
+                                )}
                         </div>
                     </CheckboxGroup>
                     <input

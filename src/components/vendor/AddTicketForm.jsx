@@ -15,31 +15,46 @@ export default function AddTicketForm() {
 
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
-        const imageFile = formData.get("image");
 
         const ticketData = Object.fromEntries(formData.entries());
         const { ticketTittle, fromLocation, toLocation, price, quantity, time, date, perks } = ticketData;
         console.log("data", ticketData);
 
-        console.log(user);
-        const newTicket = {
-            ticketTitle: ticketTittle,
-            fromLocation: fromLocation,
-            toLocation: toLocation,
-            transportType: transportType,
-            price: price,
-            quantity: Number(quantity),
-            date: date,
-            time: time,
-            perks: perks,
-            vendorName: user?.name,
-            vendorEmail: user?.email,
-            adminApproval: "pending",
-            advertise: "false",
-        }
-        console.log("new Ticket: ", newTicket);
-
         try {
+            const imageFile = formData.get("image");
+            const imgData = new FormData();
+            imgData.append("image", imageFile);
+            const IMGBB_API_KEY = process.env.NEXT_PUBLIC_IMG_API_KEY;
+            const response = await fetch(
+                `https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`,
+                {
+                    method: "POST",
+                    body: imgData,
+                }
+            );
+            const imageData = await response.json();
+            console.log(imageData);
+            const imageUrl = imageData.data.url;
+            // console.log("Image URL:", imageUrl);
+            console.log(user);
+            const newTicket = {
+                ticketTitle: ticketTittle,
+                fromLocation: fromLocation,
+                toLocation: toLocation,
+                transportType: transportType,
+                price: price,
+                quantity: Number(quantity),
+                date: date,
+                time: time,
+                perks: perks,
+                image: imageUrl,
+                vendorName: user?.name,
+                vendorEmail: user?.email,
+                adminApproval: "pending",
+                advertise: "false",
+            }
+            console.log("new Ticket: ", newTicket);
+
             const res = await fetch(`${process.env.NEXT_PUBLIC_API_URI}/api/allticket`, {
                 method: 'POST',
                 headers: {

@@ -1,21 +1,28 @@
 'use client'
 
 import { postBookingData } from '@/lib/action/booking-control';
-import { AlertDialog, Button } from '@heroui/react';
-import React from 'react';
+import { AlertDialog, Button, Description, InputGroup, Label, NumberField, TextField } from '@heroui/react';
+import React, { useState } from 'react';
 
 const BookNowHandle = ({ ticket, userDetails }) => {
+    const [quantity, setQuantity] = useState(1);
     const user = userDetails[0];
-    const { _id,...ticketData } = ticket;
+    const { _id, quantity: ticketQuantity, price, ...ticketData } = ticket;
     const newTicket = {
         ...ticketData,
         ticketId: _id,
         ticketStatus: "pending",
+        totalBuy: Number(quantity),
+        totalCost: Number(price) * Number(quantity),
         userName: user.name,
         userEmail: user.email
     }
     console.log('nd', newTicket);
     const handleBookingTickets = async () => {
+        if (quantity > Number(ticketQuantity)) {
+            alert(`You can buy maximum ${ticketQuantity} tickets.`);
+            return;
+        }
         try {
             const response = await fetch(
                 `${process.env.NEXT_PUBLIC_API_URI}/api/booking/ticket`,
@@ -29,12 +36,10 @@ const BookNowHandle = ({ ticket, userDetails }) => {
             );
             alert("Ticket Booked Successfull wait for vendor approval..");
             return await response.json();
-
         }
         catch (e) {
             console.log("error", e);
         }
-
     }
 
     return (
@@ -49,7 +54,17 @@ const BookNowHandle = ({ ticket, userDetails }) => {
                             <AlertDialog.Heading>Confirm to buy this Ticket?</AlertDialog.Heading>
                         </AlertDialog.Header>
                         <AlertDialog.Body>
-                            This will pending for vendor apporval. Then you can pay for this ticket.
+
+                            <TextField className="w-full max-w-[280px]" defaultValue={quantity} onChange={setQuantity} name="price">
+                                <Label>Set your seat</Label>
+                                <InputGroup>
+                                    <InputGroup.Prefix></InputGroup.Prefix>
+                                    <InputGroup.Input className="w-full max-w-[200px]" type="number" />
+                                    <InputGroup.Suffix>Seat</InputGroup.Suffix>
+                                </InputGroup>
+                                <Description>Your total seats?</Description>
+                            </TextField>
+
                         </AlertDialog.Body>
                         <AlertDialog.Footer>
                             <Button slot="close" variant="tertiary">

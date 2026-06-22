@@ -1,15 +1,12 @@
 import { getTicketById } from "@/lib/api/latest-tickets";
 import { getUserSession } from '@/lib/api/session';
 import Link from "next/link";
-import { Card, Chip, Button } from "@heroui/react";
+import { Card, Chip, Button, NumberField, FieldError, Label } from "@heroui/react";
 import {
     Plane,
     Calendar,
     Clock,
     LocationArrow,
-    User,
-    Envelope,
-    TagDollar,
 } from "@gravity-ui/icons";
 import Image from "next/image";
 import { getUserByEmail } from "@/lib/api/users";
@@ -181,6 +178,7 @@ const TicketDetails = async ({ params }) => {
                                     </div>
                                 </div>
                             </Card>
+                            
                             <BookNowHandle key={ticket._id} ticket={ticket} userDetails={userDetails} />
                             <Card>
                                 <div className="p-7">

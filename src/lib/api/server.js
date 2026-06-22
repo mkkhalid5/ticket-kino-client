@@ -25,6 +25,7 @@ export const dataDelete = async (path) => {
 };
 
 export const dataUpdate = async (path, data) => {
+    console.log('d',data);
     const res = await fetch(`${baseUrl}${path}`, {
         method: 'PATCH',
         headers: {

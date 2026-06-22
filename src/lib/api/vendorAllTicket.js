@@ -11,3 +11,7 @@ export const getAllTicket = async () =>{
 export const updateTicketStatus = async (id,status,ad) => {
     return await dataUpdate(`/api/allticket/${id}`,{status,ad});
 }
+
+export const getAllUserBookedTicket = async () => {
+    return await dataGet(`/api/booking/ticket`);
+}

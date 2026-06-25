@@ -2,7 +2,7 @@
 
 import { useSession } from "@/lib/auth-client";
 import { Check, Envelope, LocationArrow, PencilToLine, SquareChartBar, TagDollar, Plus } from "@gravity-ui/icons";
-import { Button, Checkbox, CheckboxGroup, DateField, Description, Input, InputGroup, Label, ListBox, Radio, RadioGroup, Select, TextField, TimeField } from "@heroui/react";
+import { Button, Checkbox, CheckboxGroup, DateField, Description, Input, InputGroup, Label, ListBox, Radio, RadioGroup, Select, Spinner, TextField, TimeField } from "@heroui/react";
 import { useState } from "react";
 
 
@@ -19,9 +19,16 @@ export default function AddTicketForm() {
             { id: 5, value: "wifi", text: "WIFI" },
         ]
 
+    const [loading, setLoading] = useState(false);
+    const [loadingText, setLoadingText] = useState("");
+
+    console.log(process.env.NEXT_PUBLIC_IMG_API_KEY);
+
     const handleAddTicket = async (e) => {
 
         e.preventDefault();
+        setLoading(true);
+        setLoadingText("Uploading Image...");
         const formData = new FormData(e.currentTarget);
 
         const ticketData = Object.fromEntries(formData.entries());
@@ -30,21 +37,20 @@ export default function AddTicketForm() {
 
         try {
             const imageFile = formData.get("image");
-            const imgData = new FormData();
-            imgData.append("image", imageFile);
-            const IMGBB_API_KEY = process.env.NEXT_PUBLIC_IMG_API_KEY;
-            const response = await fetch(
-                `https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`,
+
+            const uploadData = new FormData();
+            uploadData.append("image", imageFile);
+
+            const uploadRes = await fetch(
+                `${process.env.NEXT_PUBLIC_API_URI}/api/upload`,
                 {
                     method: "POST",
-                    body: imgData,
+                    body: uploadData,
                 }
             );
-            const imageData = await response.json();
-            console.log(imageData);
-            const imageUrl = imageData.data.url;
-            // console.log("Image URL:", imageUrl);
-            console.log(user);
+            const uploadResult = await uploadRes.json();
+            const imageUrl = uploadResult.image;
+
             const newTicket = {
                 ticketTitle: ticketTittle,
                 fromLocation: fromLocation,
@@ -74,6 +80,8 @@ export default function AddTicketForm() {
             const data = await res.json();
             console.log(data);
             if (res.ok) {
+                setLoading(false);
+                setLoadingText("Creating Ticket...");
                 alert("Ticket Created Successfull !");
                 window.location.reload();
             }
@@ -84,6 +92,7 @@ export default function AddTicketForm() {
         }
         catch (error) {
             console.log(error);
+            setLoading(false);
             alert("Something went wrong");
         }
     }
@@ -243,9 +252,18 @@ export default function AddTicketForm() {
                         </InputGroup>
                     </TextField>
 
-                    <Button type="submit" className="w-full max-w-70 md:max-w-148  rounded-full md:col-span-2">
-                        <Check />
-                        Submit
+                    <Button type="submit" isDisabled={loading} className="w-full max-w-70 md:max-w-148  rounded-full md:col-span-2">
+                        {loading ? (
+                            <>
+                                <Spinner size="sm" />
+                                {loadingText}
+                            </>
+                        ) : (
+                            <>
+                                <Check />
+                                Submit
+                            </>
+                        )}
                     </Button>
 
                 </div>

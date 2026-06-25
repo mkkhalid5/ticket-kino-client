@@ -4,6 +4,7 @@ import {
     Chip,
     Button
 } from "@heroui/react";
+import Image from "next/image";
 
 const BookingCard = ({ booking, date, countdown }) => {
     console.log('cc', countdown);
@@ -14,13 +15,33 @@ const BookingCard = ({ booking, date, countdown }) => {
         airplane: "secondary"
     };
 
+    const handlePayment = async () => {
+        const res = await fetch(
+            "http://localhost:5000/api/create-checkout-session",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    bookingId: booking._id,
+                }),
+            }
+        );
+        const data = await res.json();
+        if (data.success) {
+            window.location.href = data.url;
+        }
+    };
     return (
         <Card className="overflow-hidden shadow-md hover:shadow-xl transition-all duration-300">
             {/* Top Image Area */}
             <div className="relative h-40 bg-gradient-to-r from-slate-900 via-blue-900 to-slate-900">
-                <img
-                    src={`https://picsum.photos/500/300?random=${booking._id}`}
-                    alt=""
+                <Image
+                    src={booking.image}
+                    alt={booking.ticketTitle}
+                    height={200}
+                    width={200}
                     className="w-full h-full object-cover opacity-70"
                 />
 
@@ -90,7 +111,7 @@ const BookingCard = ({ booking, date, countdown }) => {
                 </div>
                 <div className="mt-6 flex justify-between">
                     {
-                        countdown === "Expired" ? <p className="bg-red-50 text-red-500 px-2 rounded-2xl font-semibold">Ticket Expired</p> : booking.ticketStatus === "pending" ? <p className="bg-amber-50 text-amber-500 px-2 rounded-2xl">Please waiting for approval</p> : booking.ticketStatus === "rejected" ? <p className="bg-red-50 text-red-500 px-2 rounded-2xl">Ticket Rejected</p> : <Button variant="flat" size="sm">Proceed to pay</Button>}
+                        countdown === "Expired" ? <p className="bg-red-50 text-red-500 px-2 rounded-2xl font-semibold">Ticket Expired</p> : booking.ticketStatus === "pending" ? <p className="bg-amber-50 text-amber-500 px-2 rounded-2xl">Please waiting for approval</p> : booking.ticketStatus === "rejected" ? <p className="bg-red-50 text-red-500 px-2 rounded-2xl">Ticket Rejected</p> : <Button variant="flat" size="sm" onClick={handlePayment}>Proceed to pay</Button>}
                     <Link href={`/alltickets/${booking._id}`}>
                         <Button color="primary" size="sm">Details</Button>
                     </Link>

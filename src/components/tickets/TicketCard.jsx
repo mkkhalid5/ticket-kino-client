@@ -1,35 +1,18 @@
 import Link from "next/link";
 import { Button, Card, Chip } from "@heroui/react";
-
-const cityImages = {
-    Dhaka:
-        "https://images.unsplash.com/photo-1512453979798-5ea266f8880c",
-
-    Dubai:
-        "https://images.unsplash.com/photo-1518684079-3c830dcef090",
-
-    Rajshahi:
-        "https://images.unsplash.com/photo-1506744038136-46273834b3fb",
-
-    Pakistan:
-        "https://images.unsplash.com/photo-1578898887932-dce23a595ad4",
-
-    "South Korea":
-        "https://images.unsplash.com/photo-1538485399081-7c897c1ab94e"
-};
+import Image from "next/image";
 
 const TicketCard = ({ ticket }) => {
 
-    const image =
-        cityImages[ticket.toLocation] ||
-        "https://images.unsplash.com/photo-1436491865332-7a61a109cc05";
 
     return (
         <Card className="overflow-hidden hover:shadow-xl transition-all">
-            <div className="relative h-48">
-                <img
-                    src={image}
+            <div className="relative h-80">
+                <Image
+                    src={ticket.image}
                     alt={ticket.toLocation}
+                    height={200}
+                    width={200}
                     className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-black/40" />

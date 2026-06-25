@@ -1,6 +1,7 @@
 'use client'
 import { updateTicketStatus } from "@/lib/api/vendorAllTicket";
 import { AlertDialog, Button, Switch } from "@heroui/react";
+import toast from "react-hot-toast";
 export function Advertise({ ticket }) {
     const adminApproval = ticket.adminApproval;
     
@@ -11,10 +12,10 @@ export function Advertise({ ticket }) {
             "true"
         );
         if (result.success) {
-            alert("Advertise Successful");
+            toast.success("Advertise Successful");
             window.location.reload();
         } else {
-            alert(result.message);
+            toast.error(result.message);
         }
     };
 

@@ -4,6 +4,7 @@ import { useSession } from "@/lib/auth-client";
 import { Check, Envelope, LocationArrow, PencilToLine, SquareChartBar, TagDollar, Plus } from "@gravity-ui/icons";
 import { Button, Checkbox, CheckboxGroup, DateField, Description, Input, InputGroup, Label, ListBox, Radio, RadioGroup, Select, Spinner, TextField, TimeField } from "@heroui/react";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 
 export default function AddTicketForm() {
@@ -82,18 +83,18 @@ export default function AddTicketForm() {
             if (res.ok) {
                 setLoading(false);
                 setLoadingText("Creating Ticket...");
-                alert("Ticket Created Successfull !");
+                toast.success("Ticket Created Successfull !");
                 window.location.reload();
             }
             else {
-                alert("Failed to create ticket");
+                toast.error("Failed to create ticket");
             }
 
         }
         catch (error) {
             console.log(error);
             setLoading(false);
-            alert("Something went wrong");
+            toast.error("Something went wrong");
         }
     }
 

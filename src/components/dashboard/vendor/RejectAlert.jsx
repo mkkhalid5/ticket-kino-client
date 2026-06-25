@@ -2,11 +2,12 @@
 import { updateBookingData } from '@/lib/action/booking-control';
 import { AlertDialog, Button } from '@heroui/react';
 import React from 'react';
+import toast from 'react-hot-toast';
 
 const RejectAlert = ({ ticket }) => {
     const handleUpdate = () => {
         updateBookingData(ticket._id, "rejected");
-        alert("rejected Successfull");
+        toast.error("rejected Successfull");
         window.location.reload();
     }
     return (

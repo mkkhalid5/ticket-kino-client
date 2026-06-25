@@ -2,12 +2,13 @@
 import { updateTicketStatus } from '@/lib/api/vendorAllTicket';
 import { AlertDialog, Button } from '@heroui/react';
 import React from 'react';
+import toast from 'react-hot-toast';
 
 const ApprovedAlert = ({ticket}) => {
     const ad = ticket.advertise;
     const handleUpdate = () => {
             updateTicketStatus(ticket._id, "approved",ad);
-            alert("approved Successfull");
+            toast.success("approved Successfull");
             window.location.reload();
         }
     return (

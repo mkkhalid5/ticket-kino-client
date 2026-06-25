@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { PersonPlus, Envelope, Lock, Eye, EyeSlash, ArrowRight } from '@gravity-ui/icons';
 import { authClient } from "@/lib/auth-client";
+import toast from "react-hot-toast";
 
 // import { authClient } from "@/lib/auth-client";
 
@@ -39,20 +40,16 @@ const SignInPage = () => {
                 callbackURL: "/",
             });
             console.log("Sign-in response:", { data, error });
+            toast.success("Login Successfull..");
         } catch (error) {
             console.error(error);
+            toast.error(error.message);
         }
     };
 
     const handleGoogleLogin = async () => {
         // await authClient.signIn.social({
         //   provider: "google",
-        // });
-    };
-
-    const handleGithubLogin = async () => {
-        // await authClient.signIn.social({
-        //   provider: "github",
         // });
     };
 

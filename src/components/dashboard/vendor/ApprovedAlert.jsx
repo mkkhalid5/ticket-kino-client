@@ -2,12 +2,13 @@
 import { updateBookingData } from '@/lib/action/booking-control';
 import { AlertDialog, Button } from '@heroui/react';
 import React from 'react';
+import toast from 'react-hot-toast';
 
 const ApprovedAlert = ({ticket}) => {
 
     const handleUpdate = () => {
         updateBookingData(ticket._id, "approved");
-        alert("approved Successfull");
+        toast.success("approved Successfull");
         window.location.reload();
     }
     return (

@@ -3,6 +3,7 @@
 import { postBookingData } from '@/lib/action/booking-control';
 import { AlertDialog, Button, Description, InputGroup, Label, NumberField, TextField } from '@heroui/react';
 import React, { useState } from 'react';
+import toast from 'react-hot-toast';
 
 const BookNowHandle = ({ ticket, userDetails }) => {
     const [quantity, setQuantity] = useState(1);
@@ -20,7 +21,7 @@ const BookNowHandle = ({ ticket, userDetails }) => {
     console.log('nd', newTicket);
     const handleBookingTickets = async () => {
         if (quantity > Number(ticketQuantity)) {
-            alert(`You can buy maximum ${ticketQuantity} tickets.`);
+            toast.error(`You can buy maximum ${ticketQuantity} tickets.`);
             return;
         }
         try {
@@ -34,7 +35,7 @@ const BookNowHandle = ({ ticket, userDetails }) => {
                     body: JSON.stringify(newTicket),
                 }
             );
-            alert("Ticket Booked Successfull wait for vendor approval..");
+            toast("Ticket Booked Successfull wait for vendor approval..");
             return await response.json();
         }
         catch (e) {

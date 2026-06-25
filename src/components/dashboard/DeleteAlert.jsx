@@ -2,11 +2,12 @@
 import { updateTicketStatus } from '@/lib/api/vendorAllTicket';
 import { AlertDialog, Button } from '@heroui/react';
 import React from 'react';
+import toast from 'react-hot-toast';
 
 const DeleteAlert = ({ ticket }) => {
     const handleUpdate = () => {
         updateTicketStatus(ticket._id, "rejected");
-        alert("Rejected Successfull");
+        toast.error("Rejected Successfull");
         window.location.reload();
     }
     return (

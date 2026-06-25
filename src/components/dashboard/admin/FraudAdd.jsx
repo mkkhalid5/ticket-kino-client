@@ -3,11 +3,12 @@ import { updateUserDetails } from '@/lib/api/users';
 import { PersonXmark } from '@gravity-ui/icons';
 import { Button } from '@heroui/react';
 import React from 'react';
+import toast from 'react-hot-toast';
 
 const FraudAdd = ({user}) => {
     const handleFraud = async () => {
             updateUserDetails(user._id,`${user.role}`,"fraud")
-            alert("Mark as Fraud Successfull");
+           toast.success("Mark as Fraud Successfull");
             window.location.reload();
         }
     return (

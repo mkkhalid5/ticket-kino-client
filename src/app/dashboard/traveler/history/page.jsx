@@ -1,9 +1,16 @@
+import TravelerHistory from '@/components/ui/TravelerHistory';
+import { getUserSession } from '@/lib/api/session';
+import { getUserBookedTicket } from '@/lib/api/users';
 import React from 'react';
 
-const TrxHistory = () => {
+const TrxHistory = async () => {
+    const user = await getUserSession();
+    const bookings = await getUserBookedTicket(user.email);
+
     return (
         <div>
-            this is user trx history page;
+            <TravelerHistory bookings={bookings}/>
+            
         </div>
     );
 };

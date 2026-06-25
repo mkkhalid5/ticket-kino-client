@@ -26,10 +26,10 @@ const NavBar = () => {
 
     const dashboardLink = user
         ? user.role === "vendor"
-            ? "/dashboard/vendor"
+            ? "/dashboard/vendor/profile"
             : user.role === "admin"
-                ? "/dashboard/admin"
-                : "/dashboard/traveler"
+                ? "/dashboard/admin/profile"
+                : "/dashboard/traveler/profile"
         : "/auth/signin";
 
     const navItems = [

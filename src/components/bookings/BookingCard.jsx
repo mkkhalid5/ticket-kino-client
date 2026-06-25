@@ -111,10 +111,7 @@ const BookingCard = ({ booking, date, countdown }) => {
                 </div>
                 <div className="mt-6 flex justify-between">
                     {
-                        countdown === "Expired" ? <p className="bg-red-50 text-red-500 px-2 rounded-2xl font-semibold">Ticket Expired</p> : booking.ticketStatus === "pending" ? <p className="bg-amber-50 text-amber-500 px-2 rounded-2xl">Please waiting for approval</p> : booking.ticketStatus === "rejected" ? <p className="bg-red-50 text-red-500 px-2 rounded-2xl">Ticket Rejected</p> : <Button variant="flat" size="sm" onClick={handlePayment}>Proceed to pay</Button>}
-                    <Link href={`/alltickets/${booking._id}`}>
-                        <Button color="primary" size="sm">Details</Button>
-                    </Link>
+                        countdown === "Expired" ? <p className="bg-red-50 text-red-500 px-2 rounded-2xl font-semibold">Ticket Expired</p> : booking.ticketStatus === "pending" ? <p className="bg-amber-50 text-amber-500 px-2 rounded-2xl">Please waiting for approval</p> : booking.ticketStatus === "rejected" ? <p className="bg-red-50 text-red-500 px-2 rounded-2xl">Ticket Rejected</p> : booking?.paymentStatus === "paid" ? <p className="px-3 bg-green-200 text-green-500 rounded-2xl font-semibold">Paid</p>: <Button variant="flat" size="sm" onClick={handlePayment} className="px-3 rounded-2xl bg-blue-400 text-white">Proceed to pay</Button>}
                 </div>
             </div>
         </Card>

@@ -40,6 +40,6 @@ export const config = {
         "/dashboard/admin/:path*",
         "/dashboard/vendor/:path*",
         "/dashboard/traveler/:path*",
-        "/alltickets/:path*",
+        
     ],
 };

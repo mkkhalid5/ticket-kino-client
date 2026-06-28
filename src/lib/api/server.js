@@ -5,7 +5,9 @@ import { auth } from "../auth";
 const baseUrl = process.env.NEXT_PUBLIC_API_URI;
 
 export const getPublicData = async (path) => {
-    const res = await fetch(`${baseUrl}${path}`);
+    const res = await fetch(`${baseUrl}${path}`,{
+        cache: "no-store",
+    });
     return res.json();
 }
 

@@ -8,7 +8,6 @@ export const dataGet = async (path) => {
     const {token} = await auth.api.getToken({
         headers: await headers(),
     })
-    console.log("dad",token);
     const response = await fetch(`${baseUrl}${path}`,{
         method: 'GET',
         headers: {
@@ -51,7 +50,6 @@ export const dataUpdate = async (path, data) => {
     const {token} = await auth.api.getToken({
         headers: await headers(),
     });
-    console.log('d',data);
     const res = await fetch(`${baseUrl}${path}`, {
         method: 'PATCH',
         headers: {

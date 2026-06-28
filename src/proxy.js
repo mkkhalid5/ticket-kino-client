@@ -2,8 +2,8 @@ import { NextResponse } from 'next/server'
 import { getUserSession } from './lib/api/session';
 
 
-export function proxy(request) {
-    const user = getUserSession();
+export async function proxy(request) {
+    const user = await getUserSession();
     console.log(user, "user");
 
     if (!user) {
@@ -11,7 +11,6 @@ export function proxy(request) {
     }
 
     const { pathname } = request.nextUrl;
-
 
     //admin routes 
     if (pathname.startsWith("/dashboard/admin")) {

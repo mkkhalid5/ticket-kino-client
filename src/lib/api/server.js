@@ -4,6 +4,11 @@ import { auth } from "../auth";
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URI;
 
+export const getPublicData = async (path) => {
+    const res = await fetch(`${baseUrl}${path}`);
+    return res.json();
+}
+
 export const dataGet = async (path) => {
     const {token} = await auth.api.getToken({
         headers: await headers(),

@@ -1,4 +1,4 @@
-import FilterSidebar from "@/components/tickets/FilterSidebar";
+
 import TicketList from "@/components/tickets/TicketList";
 import { getAllTickets } from "@/lib/api/latest-tickets";
 
@@ -20,7 +20,7 @@ const AllTicketsPage = async () => {
             </div>
             <div className="grid lg:grid-cols-4 gap-8">
                 <div>
-                    <FilterSidebar />
+                    
                 </div>
                 <div className="lg:col-span-3">
                     <TicketList tickets={alltickets} />

@@ -22,5 +22,15 @@ export const auth = betterAuth({
                 defaultValue: "traveler",
             },
         }
-    }
+    },
+
+    session: {
+        cookieCache: {
+            enabled: true,
+            strategy: "jwt",
+            maxAge: 60 * 24 * 30,
+        },
+    },
+
+    plugins: [jwt()],
 })

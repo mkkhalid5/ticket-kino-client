@@ -1,6 +1,5 @@
 import { Button, Card, Chip } from "@heroui/react";
 import Link from "next/link";
-import { Plane } from "@gravity-ui/icons";
 import Image from "next/image";
 
 const AdvertiseTicket = ({ advertiseTicket }) => {
@@ -24,7 +23,7 @@ const AdvertiseTicket = ({ advertiseTicket }) => {
                         >
                             {/* Image Area */}
                             <div className="relative h-56 bg-gradient-to-r from-violet-600 via-indigo-600 to-purple-600">
-                                <Image src={ticket.image} alt={ticket.title} height={200} width={200} className="h-56 w-full" />
+                                <Image src={ticket.image} alt={ticket?.title || "ticket image"} height={200} width={200} className="h-56 w-full" />
                                 <div className="absolute top-4 left-4">
                                     <Chip color="secondary">{ticket.transportType}</Chip>
                                 </div>

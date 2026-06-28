@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { PersonPlus, Envelope, Lock, Eye, EyeSlash, ArrowRight } from '@gravity-ui/icons';
 import { authClient } from "@/lib/auth-client";
+import toast from "react-hot-toast";
 
 // import { authClient } from "@/lib/auth-client";
 
@@ -44,8 +45,10 @@ const SignupPage = () => {
                 callbackURL: "",
             });
             console.log("Signup response:", { data, error });
+            toast.success("Signup Successfull");
         } catch (error) {
             console.error(error);
+            toast.error(error.message);
         }
     };
 

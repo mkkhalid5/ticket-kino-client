@@ -1,6 +1,7 @@
 'use client'
 
 import { postBookingData } from '@/lib/action/booking-control';
+import { authClient } from '@/lib/auth-client';
 import { AlertDialog, Button, Description, InputGroup, Label, NumberField, TextField } from '@heroui/react';
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -25,12 +26,15 @@ const BookNowHandle = ({ ticket, userDetails }) => {
             return;
         }
         try {
+            const { data: token } = await authClient.token()
+            console.log(token);
             const response = await fetch(
                 `${process.env.NEXT_PUBLIC_API_URI}/api/booking/ticket`,
                 {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
+                        authorization: `Bearer ${token.token}`,
                     },
                     body: JSON.stringify(newTicket),
                 }

@@ -48,7 +48,9 @@ const SignupPage = () => {
             if (error) {
                 toast.error(error?.message || "signup failed try again");
             }
-            toast.success("Signup Successfull");
+            if(data){
+                toast.success("Signup Successfull");
+            }
         } catch (error) {
             console.error(error);
             toast.error(error.message);

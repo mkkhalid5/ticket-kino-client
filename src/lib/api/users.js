@@ -1,11 +1,11 @@
-import { dataGet, dataUpdate } from "./server";
+import { dataGet, dataUpdate, getPublicData } from "./server";
 
 export const getAllUser = async () => {
-    return await dataGet(`/api/ticket-kino/users`);
+    return await getPublicData(`/api/ticket-kino/users`);
 }
 
 export const getUserByEmail = async (email) => {
-    return await dataGet(`/api/ticket-kino/users/${email}`)
+    return await getPublicData(`/api/ticket-kino/users/${email}`)
 }
 
 export const updateUserDetails = async (id,role, status) => {

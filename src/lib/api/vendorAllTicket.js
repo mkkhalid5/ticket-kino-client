@@ -15,3 +15,7 @@ export const updateTicketStatus = async (id,status,ad) => {
 export const getAllUserBookedTicket = async () => {
     return await dataGet(`/api/booking/ticket`);
 }
+
+export const getAllPaidTicket = async (vendorEmail) => {
+    return await dataGet(`/api/paid/all-tickets/${vendorEmail}`);
+}

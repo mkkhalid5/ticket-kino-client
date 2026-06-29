@@ -22,12 +22,12 @@ const MyTicketManagePage = async () => {
                         <div className='w-full bg-red-50'>
                             <h2 className='font-bold text-lg flex items-center gap-1'>{ticket.fromLocation}<ArrowRight />{ticket.toLocation}  <span className={`font-medium px-2 rounded-2xl ${ticket.adminApproval === "pending" ? 'bg-yellow-100 text-yellow-500' : ticket.adminApproval === "rejected" ? 'bg-red-100 text-red-500' : 'bg-green-200 text-green-500'} `}>{ticket.adminApproval}</span></h2>
                             <p className='text-[#99A1AF]'>TK{ticket.price} per seat</p>
-                            <ProgressBar aria-label="Loading progress" className="w-full" value={45} maxValue={45}>
+                            <ProgressBar aria-label="Loading progress" className="w-full" value={ticket.quantity} maxValue={ticket.totalQuantity}>
                                 <ProgressBar.Track>
                                     <ProgressBar.Fill />
                                 </ProgressBar.Track>
                             </ProgressBar>
-                            <p className='text-[#99A1AF]'>{ticket.quantity}/{ticket.quantity} seats sold</p>
+                            <p className='text-[#99A1AF]'>{ticket.quantity}/{ticket.totalQuantity} seats sold</p>
                         </div>
 
                         <div className='flex gap-2'>

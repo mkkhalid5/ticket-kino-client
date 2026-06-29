@@ -23,30 +23,36 @@ const BookingList = ({ bookings }) => {
 
     return (
         <>
-            <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
-                {currentBookings.map((booking) => {
-                    const countdown = getCountdown(
-                        booking.date,
-                        booking.time
-                    );
-                    return (
-                        <BookingCard
-                            key={booking._id}
-                            booking={booking}
-                            date={formatTime}
-                            countdown={countdown}
+            <div className="">
+                {/* Sidebar */}
+                {/* Ticket List */}
+                <div className="lg:col-span-3">
+                    <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+                        {currentBookings.map((booking) => {
+                            const countdown = getCountdown(
+                                booking.date,
+                                booking.time
+                            );
+                            return (
+                                <BookingCard
+                                    key={booking._id}
+                                    booking={booking}
+                                    date={formatTime}
+                                    countdown={countdown}
+                                />
+                            );
+                        })}
+                    </div>
+                    <div className="flex justify-center mt-10">
+                        <Pagination
+                            total={totalPages}
+                            page={page}
+                            onChange={setPage}
+                            showControls
+                            color="primary"
                         />
-                    )
-                })}
-            </div>
-            <div className="flex justify-center mt-10">
-                <Pagination
-                    total={totalPages}
-                    page={page}
-                    onChange={setPage}
-                    showControls
-                    color="primary"
-                />
+                    </div>
+                </div>
             </div>
         </>
     );

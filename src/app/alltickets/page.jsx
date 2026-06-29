@@ -18,11 +18,8 @@ const AllTicketsPage = async () => {
                     {alltickets.length} results found
                 </p>
             </div>
-            <div className="grid lg:grid-cols-4 gap-8">
-                <div>
-                    
-                </div>
-                <div className="lg:col-span-3">
+            <div className="">
+                <div className="">
                     <TicketList tickets={alltickets} />
                 </div>
             </div>

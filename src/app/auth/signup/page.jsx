@@ -4,9 +4,11 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { PersonPlus, Envelope, Lock, Eye, EyeSlash, ArrowRight } from '@gravity-ui/icons';
+import { PersonPlus, Envelope, Lock, Eye, EyeSlash, ArrowRight, Picture } from '@gravity-ui/icons';
 import { authClient } from "@/lib/auth-client";
 import toast from "react-hot-toast";
+import { redirect } from "next/dist/server/api-utils";
+
 
 // import { authClient } from "@/lib/auth-client";
 
@@ -149,6 +151,27 @@ const SignupPage = () => {
                         </div>
                     </div>
 
+                    <div>
+                        <label className="mb-2 block font-semibold text-slate-800">
+                            Image Url
+                        </label>
+
+                        <div className="relative">
+                            <Picture
+                                size={20}
+                                className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+                            />
+
+                            <input
+                                type="text"
+                                name="image"
+                                placeholder="image url"
+                                value={formData.image}
+                                onChange={handleChange}
+                                className="w-full rounded-2xl border px-12 py-4 outline-none focus:border-violet-500"
+                            />
+                        </div>
+                    </div>
 
                     {/* Email */}
 

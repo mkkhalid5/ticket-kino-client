@@ -17,7 +17,7 @@ const BookingCard = ({ booking, date, countdown }) => {
 
     const handlePayment = async () => {
         const res = await fetch(
-            "http://localhost:5000/api/create-checkout-session",
+            `${process.env.NEXT_PUBLIC_API_URI}/api/create-checkout-session`,
             {
                 method: "POST",
                 headers: {

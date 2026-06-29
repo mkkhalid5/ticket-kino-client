@@ -43,7 +43,9 @@ const SignInPage = () => {
             if(error){
                 toast.error(error?.message || "signin failed try again");
             }
-            toast.success("Login Successfull..");
+            if(data){
+                toast.success("Login Successfull..");
+            }
         } catch (error) {
             console.error(error);
             toast.error(error.message);

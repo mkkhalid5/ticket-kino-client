@@ -42,9 +42,12 @@ const SignupPage = () => {
                 password: formData.password,
                 role: userType, // required
                 image: "",
-                callbackURL: "",
+                callbackURL: "/",
             });
             console.log("Signup response:", { data, error });
+            if (error) {
+                toast.error(error?.message || "signup failed try again");
+            }
             toast.success("Signup Successfull");
         } catch (error) {
             console.error(error);
@@ -53,9 +56,10 @@ const SignupPage = () => {
     };
 
     const handleGoogleLogin = async () => {
-        // await authClient.signIn.social({
-        //   provider: "google",
-        // });
+        await authClient.signIn.social({
+            provider: "google",
+        });
+        
     };
 
     return (
@@ -80,8 +84,8 @@ const SignupPage = () => {
                     <button
                         onClick={() => setUserType("traveler")}
                         className={`flex-1 rounded-xl py-3 font-medium transition ${userType === "traveler"
-                                ? "bg-white shadow text-slate-900"
-                                : "text-slate-500"
+                            ? "bg-white shadow text-slate-900"
+                            : "text-slate-500"
                             }`}
                     >
                         Traveler
@@ -90,8 +94,8 @@ const SignupPage = () => {
                     <button
                         onClick={() => setUserType("vendor")}
                         className={`flex-1 rounded-xl py-3 font-medium transition ${userType === "vendor"
-                                ? "bg-white shadow text-slate-900"
-                                : "text-slate-500"
+                            ? "bg-white shadow text-slate-900"
+                            : "text-slate-500"
                             }`}
                     >
                         Vendor
@@ -121,28 +125,28 @@ const SignupPage = () => {
                     onSubmit={handleSubmit}
                     className="space-y-5"
                 >
-                        <div>
-                            <label className="mb-2 block font-semibold text-slate-800">
-                                Full Name
-                            </label>
+                    <div>
+                        <label className="mb-2 block font-semibold text-slate-800">
+                            Full Name
+                        </label>
 
-                            <div className="relative">
-                                <PersonPlus
-                                    size={20}
-                                    className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
-                                />
+                        <div className="relative">
+                            <PersonPlus
+                                size={20}
+                                className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+                            />
 
-                                <input
-                                    type="text"
-                                    name="fullName"
-                                    placeholder="MK Khalid"
-                                    value={formData.fullName}
-                                    onChange={handleChange}
-                                    className="w-full rounded-2xl border px-12 py-4 outline-none focus:border-violet-500"
-                                />
-                            </div>
+                            <input
+                                type="text"
+                                name="fullName"
+                                placeholder="MK Khalid"
+                                value={formData.fullName}
+                                onChange={handleChange}
+                                className="w-full rounded-2xl border px-12 py-4 outline-none focus:border-violet-500"
+                            />
                         </div>
-                    
+                    </div>
+
 
                     {/* Email */}
 

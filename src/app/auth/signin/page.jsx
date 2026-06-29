@@ -40,6 +40,9 @@ const SignInPage = () => {
                 callbackURL: "/",
             });
             console.log("Sign-in response:", { data, error });
+            if(error){
+                toast.error(error?.message || "signin failed try again");
+            }
             toast.success("Login Successfull..");
         } catch (error) {
             console.error(error);
@@ -48,9 +51,9 @@ const SignInPage = () => {
     };
 
     const handleGoogleLogin = async () => {
-        // await authClient.signIn.social({
-        //   provider: "google",
-        // });
+        await authClient.signIn.social({
+          provider: "google",
+        });
     };
 
     return (

@@ -9,7 +9,7 @@ const PaymentSuccess = () => {
     useEffect(() => {
         if (!sessionId) return;
         const updatePayment = async () => {
-            const res = await fetch("http://localhost:5000/api/payment-success", {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URI}/api/payment-success`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
